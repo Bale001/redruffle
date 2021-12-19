@@ -62,7 +62,7 @@ fn main() {
     let mut write = player.lock().unwrap();
     let movie = Arc::new(SwfMovie::empty(32));
     write.set_root_movie(movie);
-    write.set_max_execution_duration(Duration::from_secs(300));
+    write.set_max_execution_duration(Duration::MAX);
     write.update(|context| {
         let mut input_buffer = String::new();
         let mut curly_count: u32 = 0;
