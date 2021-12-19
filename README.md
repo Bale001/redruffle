@@ -1,6 +1,6 @@
 # redruffle
 
-RedRuffle let's you run AS2 on the command line using Ruffle. 
+RedRuffle let's you run AS2 on the command line using Ruffle. Inspired by [redtamarin](https://github.com/Corsaair/redtamarin).
 
 # Usage
 Use `cargo` to compile & run RedRuffle, like this:
