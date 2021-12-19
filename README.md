@@ -21,3 +21,4 @@ cargo run --release
 >>> trace(a)
 5
 ```
+Exit the shell using ctrl+c
