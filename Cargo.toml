@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-codegen = { git = "https://github.com/EmperorBale/rustasc", rev = "dd026960718a6a549476cac1127c228d1a0576da" }
-parser = { git = "https://github.com/EmperorBale/rustasc", rev = "dd026960718a6a549476cac1127c228d1a0576da"}
-ruffle_core = { git = "https://github.com/EmperorBale/ruffle/", rev="e5233991e41bc0e50daba85959c4579cdbfdf5e1"}
+codegen = { git = "https://github.com/EmperorBale/rustasc", rev = "4fc91065f89497d5419db33b4c140e1d33c1c0c8" }
+parser = { git = "https://github.com/EmperorBale/rustasc", rev = "4fc91065f89497d5419db33b4c140e1d33c1c0c8"}
+ruffle_core = { git = "https://github.com/EmperorBale/ruffle/", rev="132573cdc39a21672744ca925028b6df49643138"}
+enumset = "1.0.12"

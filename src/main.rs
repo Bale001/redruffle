@@ -1,13 +1,9 @@
 use codegen::codegen::ActionBlock;
 use parser::{ast::expression::Symbol, parser::ParseError, Parser};
-use ruffle_core::avm1::activation::{Activation, ActivationIdentifier};
-use ruffle_core::backend::{
-    audio::NullAudioBackend, locale::NullLocaleBackend, log::LogBackend,
-    navigator::NullNavigatorBackend, render::NullRenderer, storage::MemoryStorageBackend,
-    ui::NullUiBackend, video::NullVideoBackend,
-};
+use ruffle_core::avm1::{Activation, ActivationIdentifier};
+use ruffle_core::backend::log::LogBackend;
 use ruffle_core::tag_utils::{SwfMovie, SwfSlice};
-use ruffle_core::Player;
+use ruffle_core::PlayerBuilder;
 use std::io::{self, Write};
 use std::sync::Arc;
 use std::time::Duration;
@@ -33,13 +29,7 @@ fn compile(src: String) -> Result<Vec<u8>, ParseError> {
     Ok(gen_block.into_bytes())
 }
 
-struct RedLogBackend();
-
-impl RedLogBackend {
-    fn new() -> Self {
-        Self()
-    }
-}
+struct RedLogBackend;
 
 impl LogBackend for RedLogBackend {
     fn avm_trace(&self, message: &str) {
@@ -48,19 +38,9 @@ impl LogBackend for RedLogBackend {
 }
 
 fn main() {
-    let player = Player::new(
-        Box::new(NullRenderer::new()),
-        Box::new(NullAudioBackend::new()),
-        Box::new(NullNavigatorBackend::new()),
-        Box::new(MemoryStorageBackend::default()),
-        Box::new(NullLocaleBackend::new()),
-        Box::new(NullVideoBackend::new()),
-        Box::new(RedLogBackend::new()),
-        Box::new(NullUiBackend::new()),
-    )
-    .unwrap();
+    let player = PlayerBuilder::new().with_log(RedLogBackend).build();
     let mut write = player.lock().unwrap();
-    let movie = Arc::new(SwfMovie::empty(32));
+    let movie = SwfMovie::empty(32);
     write.set_root_movie(movie);
     write.set_max_execution_duration(Duration::MAX);
     write.update(|context| {
